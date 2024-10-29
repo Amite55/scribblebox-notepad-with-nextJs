@@ -1,5 +1,6 @@
 import { connectDB } from "@/lip/connectDB";
 import { ObjectId } from "mongodb";
+import { NextResponse } from "next/server";
 
 export const PATCH = async (request, {params}) => {
     const db = await connectDB();
@@ -13,8 +14,8 @@ export const PATCH = async (request, {params}) => {
         },
         {upsert: true}
     );
-        return Response.json({message: 'This Notes Deleted', response: resp})
+        return NextResponse.json({message: 'This Notes Deleted', response: resp})
     } catch(error){
-        return Response.json({message: "something in wrong "})
+        return NextResponse.json({message: "something in wrong "})
     }
 }

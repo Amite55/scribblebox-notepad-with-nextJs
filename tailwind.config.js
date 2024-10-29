@@ -19,7 +19,7 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        carDoctorTheme: {
+        scribbleNoteTheme: {
           ...require("daisyui/src/theming/themes")["dark"],
           "primary": "#FF3811",
           "secondary": "teal",
