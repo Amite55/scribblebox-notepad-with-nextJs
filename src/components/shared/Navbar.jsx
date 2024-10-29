@@ -12,7 +12,7 @@ const Navbar = () => {
     return (
         <div className="navbar shadow-2xl bg-base-100">
         <div className="navbar-start">
-          <a href='' onClick={() => router.push('/')} className="btn btn-ghost text-xl">Scribble <span className='text-primary'>Box</span></a>
+          <a href='' onClick={() => window.location.href = '/'} className="btn btn-ghost text-xl">Scribble <span className='text-primary'>Box</span></a>
         </div>
         <div className="navbar-end">
         <IoSearchOutline size={22} />

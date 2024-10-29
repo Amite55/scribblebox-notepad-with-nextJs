@@ -1,14 +1,13 @@
 "use client"
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import React from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';;
 
 const NoteAdd = () => {
-    const router = useRouter();
     const session = useSession();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const newNote = {
             title: e.target.title.value,
@@ -16,17 +15,16 @@ const NoteAdd = () => {
             date: new Date().toISOString().split('T')[0],
             email: session.data?.user?.email
         }
-console.log( newNote);
-        const resp = fetch('http://localhost:3000/noteAdd/api', {
-            method: "POST",
-            body: JSON.stringify(newNote),
-            headers: {
-                'content-type': 'application/json'
-            },
-        })
-         if(resp.status === 200){
-            toast.success('Save your new note')
-            router.push('/')
+        try {
+            const resp = await axios.post(`${process.env.NEXT_PUBLIC_VITE_URL}/noteAdd/api`, newNote)
+            if(resp.status === 200){
+                toast.success('Add New Note!')
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1000);
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -35,9 +33,9 @@ console.log( newNote);
         <div className='px-40 py-10'>
             <h3 className='text-xl my-6'>Add Your New Note!</h3>
             <div>
-                <form 
-                onSubmit={handleSubmit}
-                className="space-y-4 md:space-y-6" action="#">
+                <form
+                    onSubmit={handleSubmit}
+                    className="space-y-4 md:space-y-6" action="#">
                     <div>
                         <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Note Title</label>
                         <input type="name" name="title" id="title" className="bg-gray-200 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Title" required />

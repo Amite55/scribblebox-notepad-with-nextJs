@@ -1,5 +1,6 @@
 import { connectDB } from "@/lip/connectDB";
 import { ObjectId } from "mongodb";
+import { NextResponse } from "next/server";
 
 
 export const GET = async (request, { params }) => {
@@ -8,20 +9,19 @@ export const GET = async (request, { params }) => {
         const noteCollection = db.collection('note-All');
 
         if (!params?.id) {
-            return new Response(JSON.stringify({ message: "ID parameter missing" }), { status: 400 });
+            return new NextResponse(JSON.stringify({ message: "ID parameter missing" }), { status: 400 });
         }
 
         const resp = await noteCollection.findOne({ _id: new ObjectId(params.id) });
 
         if (!resp) {
-            return new Response(JSON.stringify({ message: "No data found for this ID" }), { status: 404 });
+            return new NextResponse(JSON.stringify({ message: "No data found for this ID" }), { status: 404 });
         }
 
-        console.log(resp, 'get resp'); 
-        return new Response(JSON.stringify({ message: 'get data', data: resp }), { status: 200 });
+        return new NextResponse(JSON.stringify({ message: 'get data', data: resp }), { status: 200 });
 
     } catch (error) {
-        console.error("Error fetching data:", error);
-        return new Response(JSON.stringify({ message: "Something went wrong" }), { status: 500 });
+        
+        return new NextResponse(JSON.stringify({ message: "Something went wrong" }), { status: 500 });
     }
 };

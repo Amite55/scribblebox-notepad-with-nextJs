@@ -15,7 +15,7 @@ const SingUpPage = () => {
             email: e.target.email.value,
             password: e.target.password.value
         };
-        const resp = fetch('http://localhost:3000/singup/api', {
+        const resp = fetch(`${process.env.NEXT_PUBLIC_VITE_URL}/singup/api`, {
             method: "POST",
             body: JSON.stringify(newUser),
             headers: {

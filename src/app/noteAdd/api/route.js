@@ -8,7 +8,6 @@ export const POST = async (request) => {
         const resp = await noteCollection.insertOne(newNote);
         return Response.json({message: "New note Create"}, {status: 200});
     } catch(error) {
-        console.log(error);
         return Response.json({message: "Something Is Wrong"}, {status: 50})
     }
 }

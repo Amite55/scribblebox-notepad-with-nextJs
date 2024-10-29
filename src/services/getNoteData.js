@@ -1,12 +1,12 @@
+import axios from "axios";
+
 export const getNoteData = async () => {
-    const res = await fetch('http://localhost:3000/services/api/get-all')
-    const noteData = await res.json();
-    return noteData;
+    const {data} = await axios.get(`${process.env.NEXT_PUBLIC_VITE_URL}/services/api/get-all`)
+    return data ;
 }
 
 
 export const getNoteDetailsData = async (id) => {
-    const res = await fetch(`http://localhost:3000/services/api/${id}`)
-    const noteDetailsData = await res.json();
-    return noteDetailsData;
+    const {data} = await axios.get(`${process.env.NEXT_PUBLIC_VITE_URL}/services/api/${id}`)
+    return data ;
 }
